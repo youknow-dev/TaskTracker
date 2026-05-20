@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/TaskTracker/">
+    <Project Path="TaskTracker/TaskTracker.csproj" />
+  </Folder>
+</Solution>
