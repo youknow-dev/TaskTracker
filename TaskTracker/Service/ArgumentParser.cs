@@ -23,6 +23,12 @@ namespace TaskTracker.Service
                         return;
 
                     case "update":
+                        if (index >= args.Length)
+                        {
+                            Console.WriteLine("No task ID provided");
+                            return;
+                        }
+
                         if (int.TryParse(args[index], out int i))
                         {
                             task = tasks.FirstOrDefault(x => x.ID == i); 
@@ -33,8 +39,16 @@ namespace TaskTracker.Service
                             }
                             else
                             {
-                                task.Description = args[++index];
-                                task.UpdatedAt = DateTime.Now;
+                                ++index;
+                                if (index < args.Length)
+                                {
+                                    task.Description = args[index];
+                                    task.UpdatedAt = DateTime.Now;
+                                }
+                                else
+                                {
+                                   Console.WriteLine("no description provided"); 
+                                }
                             }
                         }
                         else
@@ -44,6 +58,12 @@ namespace TaskTracker.Service
                         return;
 
                     case "delete":
+                        if (index >= args.Length)
+                        {
+                            Console.WriteLine("No task ID provided");
+                            return;
+                        }
+
                         if (int.TryParse(args[index], out i))
                         {
                             task = tasks.FirstOrDefault(x => x.ID == i); 
@@ -64,6 +84,12 @@ namespace TaskTracker.Service
                         return;
 
                     case "mark-in-progress":
+                        if (index >= args.Length)
+                        {
+                            Console.WriteLine("No task ID provided");
+                            return;
+                        }
+
                         if (int.TryParse(args[index], out i))
                         {
                             task = tasks.FirstOrDefault(x => x.ID == i); 
@@ -85,7 +111,13 @@ namespace TaskTracker.Service
                         return;
 
                     case "mark-done":
-                    if (int.TryParse(args[index], out i))
+                        if (index >= args.Length)
+                        {
+                            Console.WriteLine("No task ID provided");
+                            return;
+                        }
+
+                        if (int.TryParse(args[index], out i))
                         {
                             task = tasks.FirstOrDefault(x => x.ID == i); 
                             
@@ -107,7 +139,7 @@ namespace TaskTracker.Service
 
                     case "list":
                         var tasksToList = tasks;
-                        if (++index < args.Length)
+                        if (index < args.Length)
                         {
                             Model.TaskStatus? status = args[index].ToLower() switch
                             {
@@ -130,7 +162,7 @@ namespace TaskTracker.Service
 
                         foreach (var item in tasksToList)
                         {
-                            Console.WriteLine($"  Task {item.ID}: {item.Description}");
+                            Console.WriteLine($"{$"  Task {item.ID}",16}: {item.Description}");
                             Console.WriteLine($"          Status: {item.Status}");
                             Console.WriteLine($"   Creation Date: {item.CreatedAt}");
                             Console.WriteLine($"Last Update Date: {item.UpdatedAt}");
@@ -139,7 +171,7 @@ namespace TaskTracker.Service
                         return;
 
                     default:
-                        Console.WriteLine($"[unknown command ({args[index]}). Display help information]");
+                        Console.WriteLine($"[unknown command ({args[--index]}). Display help information]");
                         return;
                 }
             }

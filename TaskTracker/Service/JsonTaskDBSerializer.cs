@@ -5,6 +5,11 @@ namespace TaskTracker.Service
 {
     internal class JsonTaskDBSerializer : ITaskDatabaseSerializer
     {
+        private readonly JsonSerializerOptions options = new()
+        {
+            WriteIndented = true
+        };
+
         public async Task<List<Model.Task>> LoadTasksAsync(string filepath)
         {
             if (!File.Exists(filepath))
@@ -18,8 +23,8 @@ namespace TaskTracker.Service
 
         public async Task SaveTasksAsync(string filepath, List<Model.Task> tasks)
         {
-            using FileStream stream = File.OpenWrite(filepath);
-            await JsonSerializer.SerializeAsync(stream, tasks);
+            using FileStream stream = File.Open(filepath, FileMode.Create);
+            await JsonSerializer.SerializeAsync(stream, tasks, options);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Text.Json;
-using TaskTracker.Service;
+﻿using TaskTracker.Service;
 
 namespace TaskTracker
 {
