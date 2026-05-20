@@ -11,9 +11,7 @@ namespace TaskTracker
 
         public static async Task Main(string[] args)
         {
-            var tasks = await serializer.LoadTasksAsync(dbPath);
-
-            parser.Parse(args);
+            parser.Parse(args, await serializer.LoadTasksAsync(dbPath));
         }
     }
 }
