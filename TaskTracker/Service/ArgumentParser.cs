@@ -13,25 +13,24 @@ namespace TaskTracker.Service
 
             while (index < args.Length)
             {
-                switch (args[index].ToLower())
+                switch (args[index++].ToLower())
                 {
                     case "add":
-                        break;
+                        return;
                     case "update":
-                        break;
+                        return;
                     case "delete":
-                        break;
+                        return;
                     case "mark-in-progress":
-                        break;
+                        return;
                     case "mark-done":
-                        break;
+                        return;
                     case "list":
-                        break;
+                        return;
                     default:
                         Console.WriteLine($"[unknown command ({args[index]}). Display help information]");
-                        break;
+                        return;
                 }
-                index++;
             }
 
             throw new NotImplementedException();
