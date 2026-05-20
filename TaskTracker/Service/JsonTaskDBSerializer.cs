@@ -5,7 +5,7 @@ namespace TaskTracker.Service
 {
     internal class JsonTaskDBSerializer : ITaskDatabaseSerializer
     {
-        public async Task<IEnumerable<Model.Task>> LoadTasksAsync(string filepath)
+        public async Task<List<Model.Task>> LoadTasksAsync(string filepath)
         {
             if (!File.Exists(filepath))
             {
@@ -13,10 +13,10 @@ namespace TaskTracker.Service
             }
 
             using FileStream stream = File.OpenRead(filepath);
-            return (await JsonSerializer.DeserializeAsync<IEnumerable<Model.Task>>(stream))!; // should never be null
+            return (await JsonSerializer.DeserializeAsync<List<Model.Task>>(stream))!; // should never be null
         }
 
-        public async Task SaveTasksAsync(string filepath, IEnumerable<Model.Task> tasks)
+        public async Task SaveTasksAsync(string filepath, List<Model.Task> tasks)
         {
             using FileStream stream = File.OpenWrite(filepath);
             await JsonSerializer.SerializeAsync(stream, tasks);
